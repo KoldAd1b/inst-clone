@@ -244,14 +244,14 @@ const PostPreview = ({ postId: id }) => {
               })}
             </div>
           ) : (
-            <div className="ml-5 h-[50%] scrollbar-thumb-black scrollbar-thin hidden md:block">
+            <div className="ml-5 h-[50%] f scrollbar-thumb-black scrollbar-thin hidden md:block">
               <p>Be the first one to comment!</p>
             </div>
           )}
 
           {user && (
             <div className="flex justify-between md:p-4 py-2 px-4 ">
-              <div className="flex space-x-4">
+              <div className="flex space-x-4 ">
                 {hasLiked ? (
                   <HeartIcon
                     onClick={likePost}
@@ -281,17 +281,23 @@ const PostPreview = ({ postId: id }) => {
               )}
             </div>
           )}
-          <p className="md:p-5 py-2 px-4 truncate  ">
+          <p className="md:p-5 py-2 px-4  ">
             {likes.length > 0 && (
-              <span className="font-bold mb-1 block ">
-                {likes.length} likes
-              </span>
+              <>
+                <span className="font-bold mb-1 block ">
+                  {likes.length} likes
+                </span>
+              </>
             )}
+          </p>
+          <div className="md:p-5 py-2 px-4  overflow-auto shadow-md border-[1px] border-gray-50 scrollbar-thin scrollbar-track-white scrollbar-thumb-gray-600">
             <span className="font-bold mr-1 hidden md:inline ">
               {post.username}
             </span>
-            <span className="hidden md:inline">{post.caption}</span>
-          </p>
+            <span className="hidden md:inline break-words ">
+              {post.caption}
+            </span>
+          </div>
 
           {user && showForm ? (
             <form className="items-center flex md:p-4 py-2 px-4 relative ">

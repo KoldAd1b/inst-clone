@@ -46,7 +46,7 @@ const UserMessage = ({
         <img
           src={img || defaultImg.src}
           alt=""
-          className="rounded-full object-contain"
+          className="rounded-full  object-cover w-full h-full"
         />
         <div
           className={`h-4 w-4 absolute rounded-full bottom-[2px] right-0 ${

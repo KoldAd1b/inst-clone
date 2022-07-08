@@ -202,11 +202,11 @@ const Post = ({
           </div>
         )}
 
-        <p className="p-5 truncate">
+        <p className="p-5 break-words ">
           {likes.length > 0 && (
             <span className="font-bold mb-1 block">{likes.length} likes</span>
           )}
-          <span className="font-bold mr-1">{username}</span>
+          <span className="font-bold mr-1 ">{username}</span>
           {caption}
         </p>
 

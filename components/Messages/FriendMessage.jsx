@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import placeholder from "../../public/placeholder.jpg";
 import defaultImg from "../../public/defaultUser.png";
 import Heart from "./Heart";

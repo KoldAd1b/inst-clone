@@ -185,7 +185,7 @@ const ProfileDescription = () => {
     if (user) {
       getInfo();
     }
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     async function getUser() {

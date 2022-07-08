@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../auth";
 import defaultImg from "../../public/defaultUser.png";
+import { authActions } from "../../store/authSlice";
 const MiniProfile = () => {
   const { user } = useSelector((state) => state.auth);
   const router = useRouter();
@@ -22,7 +23,7 @@ const MiniProfile = () => {
       <button
         onClick={async () => {
           await logout(user?.uid);
-          dispatch(authActions.removeUser());
+
           router.reload();
         }}
         className="text-blue-400 text-sm font-semibold hover:opacity-70"

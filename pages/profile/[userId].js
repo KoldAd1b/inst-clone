@@ -135,10 +135,13 @@ const UserProfile = () => {
   useEffect(() => {
     const getFollowing = async () => {
       const data = await getDocs(collection(db, "users", userId, "following"));
+      console.log(data);
       setFollowing(data.docs);
     };
+
     getFollowing();
   }, [userId]);
+
   useEffect(() => {}, [userId]);
 
   useEffect(() => {

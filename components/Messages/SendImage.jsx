@@ -46,6 +46,7 @@ const SendImage = ({ sendImage, error, loading }) => {
         <div>
           <input
             type="file"
+            accept="image/*"
             hidden
             ref={imagePickerRef}
             onChange={displayImage}

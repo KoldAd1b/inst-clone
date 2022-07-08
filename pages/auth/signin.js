@@ -5,7 +5,14 @@ import { useRouter } from "next/dist/client/router";
 import Circles from "../../components/SVG/Circles";
 import LoginForm from "../../components/Auth/LoginForm";
 import RegisterForm from "../../components/Auth/RegisterForm";
-import { addDoc, collection, doc, setDoc, Timestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  setDoc,
+  Timestamp,
+} from "firebase/firestore";
 import { db } from "../../firebase";
 import { useSelector } from "react-redux";
 
@@ -65,14 +72,21 @@ function signIn() {
                         try {
                           const data = await signInWithGoogle();
 
-                          await setDoc(doc(db, "users", data.user.uid), {
-                            uid: data.user.uid,
-                            username: data.user.displayName,
-                            name: data.user.displayName,
-                            email: data.user.email,
-                            createdAt: Timestamp.fromDate(new Date()),
-                            isOnline: true,
-                          });
+                          console.log(data.user.uid);
+                          const user = await getDoc(
+                            doc(db, "users", data.user.uid)
+                          );
+
+                          if (user.exists()) return;
+                          else
+                            await setDoc(doc(db, "users", data.user.uid), {
+                              uid: data.user.uid,
+                              username: data.user.displayName,
+                              name: data.user.displayName,
+                              email: data.user.email,
+                              createdAt: Timestamp.fromDate(new Date()),
+                              isOnline: true,
+                            });
                           router.push("/");
                         } catch (err) {
                           setGoogleError(err.message);

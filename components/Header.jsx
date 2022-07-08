@@ -64,15 +64,10 @@ const Header = () => {
           <HomeIcon onClick={() => router.push("/")} className="nav-button" />
 
           <>
-            <div className="relative nav-button">
-              <PaperAirplaneIcon
-                className="nav-button rotate-45"
-                onClick={() => router.push("/messages")}
-              />
-              <div className="absolute -top-2 -right-1 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse text-white ">
-                3
-              </div>
-            </div>
+            <PaperAirplaneIcon
+              className="nav-button rotate-45"
+              onClick={() => router.push("/messages")}
+            />
 
             <PlusCircleIcon
               onClick={() => dispatch(modalActions.setModal(true))}

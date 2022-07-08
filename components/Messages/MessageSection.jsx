@@ -63,7 +63,7 @@ const MessageSection = ({ messages, chattingWith: otherUser, currentUser }) => {
             ) : (
               <img
                 src={otherUser?.profileImg || defaultImg.src}
-                className="w-full h-full rounded-full object-contain"
+                className="w-full h-full rounded-full object-cover"
               />
             )}
           </div>

@@ -152,6 +152,7 @@ export default function Profile() {
               <div>
                 <input
                   type="file"
+                  accept="image/*"
                   hidden
                   ref={imagePickerRef}
                   onChange={displayProfileImage}
