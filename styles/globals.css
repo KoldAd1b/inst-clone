@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .nav-button {
+    @apply md:inline-flex h-6 cursor-pointer transition-all duration-200 ease-out transform hover:scale-125 active:-translate-y-1;
+  }
+  .btn-global {
+    @apply h-7 hover:scale-125 cursor-pointer transition-all duration-200 ease-out object-contain;
+  }
+  .grid-image {
+    @apply w-full h-full object-cover;
+  }
+  .grid-box {
+    @apply rounded-md border-2 border-gray-400 shadow-sm;
+  }
+  .messages-container {
+    @apply p-4 overflow-y-auto scrollbar-thin flex-1 scrollbar-track-white scrollbar-thumb-blue-100 hover:!scrollbar-thumb-blue-50 transition h-4/5;
+  }
+}
+html {
+  background-color: #fafafa;
+}
