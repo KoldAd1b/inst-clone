@@ -218,12 +218,11 @@ const Post = ({
         {comments?.length > 0 && (
           <div className="ml-10 h-28 overflow-y-scroll scrollbar-thumb-black scrollbar-thin border-l-2">
             {comments?.map((comment) => {
-              const showDelete =
-                comment.data().userId == user.uid || userId === user.uid;
-
-              console.log(user.uid);
-              console.log(comment.data().userId);
-              console.log(userId);
+              let showDelete = false;
+              if (user) {
+                showDelete =
+                  comment.data().userId == user.uid || userId === user.uid;
+              }
 
               return (
                 <div

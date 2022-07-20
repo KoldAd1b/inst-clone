@@ -182,7 +182,8 @@ const ProfileDescription = () => {
       setFollowerNumber(followers.docs.length);
       setFollowingNumber(following.docs.length);
     };
-    if (user) {
+
+    if (auth.currentUser) {
       getInfo();
     }
   }, [user]);

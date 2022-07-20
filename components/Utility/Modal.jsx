@@ -8,6 +8,7 @@ import {
   doc,
   serverTimestamp,
   updateDoc,
+  setDoc,
   collection,
 } from "@firebase/firestore";
 
@@ -62,7 +63,7 @@ const Modal = () => {
           imagePath: snapshot.ref.fullPath,
         });
 
-        await addDoc(collection(db, "users", user.uid, "posts"), {
+        await setDoc(doc(db, "users", user.uid, "posts", docRef.id), {
           postId: docRef.id,
           img: downloadURL,
           imagePath: snapshot.ref.fullPath,

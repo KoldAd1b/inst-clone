@@ -17,6 +17,9 @@ const PostList = ({ posts, deleteMode }) => {
   const dispatch = useDispatch((state) => state.auth);
 
   const handlePostClick = (id) => {
+    if (deleteMode) {
+      return;
+    }
     setPostId(id);
     dispatch(modalActions.setPostModal(true));
   };
