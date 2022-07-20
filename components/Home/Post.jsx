@@ -119,7 +119,8 @@ const Post = ({
     await addDoc(collection(db, "posts", id, "comments"), {
       comment: commentToSend,
       username: user.username,
-      userImage: user.profileImg,
+      userId: user.uid,
+      userImage: user.profileImg || "",
       timestamp: serverTimestamp(),
     });
   };
@@ -146,6 +147,9 @@ const Post = ({
       const docRef = doc(db, "users", userId, "savedPosts", id);
       await deleteDoc(docRef);
     }
+  };
+  const deleteComment = async (commentId) => {
+    await deleteDoc(doc(db, "posts", id, "comments", commentId));
   };
 
   return (
@@ -213,26 +217,47 @@ const Post = ({
         {/* comments */}
         {comments?.length > 0 && (
           <div className="ml-10 h-28 overflow-y-scroll scrollbar-thumb-black scrollbar-thin border-l-2">
-            {comments?.map((comment) => (
-              <div
-                key={comment.id}
-                className="flex items-center space-x-2 mb-3 ml-3"
-              >
-                <img
-                  className="h-8 w-8 rounded-full object-cover"
-                  src={comment.data().userImage || defaultUser}
-                />
-                <p className="text-sm flex-1">
-                  <span className="font-bold mr-2">
-                    {comment.data().username}
-                  </span>
-                  {comment.data().comment}
-                </p>
-                <Moment className="pr-5 text-xs" fromNow>
-                  {comment.data().timestamp?.toDate()}
-                </Moment>
-              </div>
-            ))}
+            {comments?.map((comment) => {
+              const showDelete =
+                comment.data().userId == user.uid || userId === user.uid;
+
+              console.log(user.uid);
+              console.log(comment.data().userId);
+              console.log(userId);
+
+              return (
+                <div
+                  key={comment.id}
+                  className="flex items-center space-x-2 mb-3 ml-3"
+                >
+                  <img
+                    className="h-8 w-8 rounded-full object-cover"
+                    src={
+                      comment.data().userImage === ""
+                        ? defaultUser
+                        : comment.data().userImage
+                    }
+                  />
+                  <p className="text-sm flex-1">
+                    <span className="font-bold mr-2">
+                      {comment.data().username}
+                    </span>
+                    {comment.data().comment}
+                  </p>
+                  <Moment className="pr-5 text-xs" fromNow>
+                    {comment.data().timestamp?.toDate()}
+                  </Moment>
+                  {showDelete && (
+                    <button
+                      className="p-2 text-red-500 hover:text-blue-500  "
+                      onClick={() => deleteComment(comment.id)}
+                    >
+                      Delete
+                    </button>
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
         {user && (
@@ -251,8 +276,8 @@ const Post = ({
 
             <input
               type="text"
-              ref={commentRef}
               value={comment}
+              ref={commentRef}
               onChange={(e) => setComment(e.target.value)}
               className="flex-1 border-none focus:ring-0 outline:none"
               placeholder="Add a comment..."

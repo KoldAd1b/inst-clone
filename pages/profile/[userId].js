@@ -181,7 +181,7 @@ const UserProfile = () => {
             <div className="w-36 h-36 md:h-52 md:w-52 relative group cursor-pointer  ">
               <img
                 src={user?.profileImg || defaultImg.src}
-                className="w-full h-full object-contain rounded-full"
+                className="w-full h-full object-cover rounded-full"
                 alt="user_img"
               />
             </div>
