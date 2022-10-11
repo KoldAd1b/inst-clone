@@ -15,6 +15,8 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/authSlice";
 
 //Browser
 function signIn() {
@@ -22,6 +24,7 @@ function signIn() {
   const [googleError, setGoogleError] = useState("");
   const router = useRouter();
   const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (user) router.replace("/");
@@ -72,21 +75,42 @@ function signIn() {
                         try {
                           const data = await signInWithGoogle();
 
-                          console.log(data.user.uid);
                           const user = await getDoc(
                             doc(db, "users", data.user.uid)
                           );
 
-                          if (user.exists()) return;
-                          else
-                            await setDoc(doc(db, "users", data.user.uid), {
+                          if (user.exists()) {
+                            dispatch(
+                              authActions.setUser({
+                                ...user.data(),
+                                createdAt: user
+                                  .data()
+                                  .createdAt.toDate()
+                                  .toString(),
+                              })
+                            );
+                            return;
+                          } else {
+                            const newUser = {
                               uid: data.user.uid,
                               username: data.user.displayName,
                               name: data.user.displayName,
                               email: data.user.email,
                               createdAt: Timestamp.fromDate(new Date()),
                               isOnline: true,
-                            });
+                            };
+
+                            await setDoc(
+                              doc(db, "users", data.user.uid),
+                              newUser
+                            );
+                            dispatch(
+                              authActions.setUser({
+                                ...newUser,
+                                createdAt: newUser.createdAt,
+                              })
+                            );
+                          }
                           router.push("/");
                         } catch (err) {
                           setGoogleError(err.message);
@@ -99,7 +123,7 @@ function signIn() {
                 </div>
 
                 <p className="text-base text-[#adadad]">
-                  Not a member yet?
+                  {login ? "Not a member yet?" : "Already a member ?"}
                   <br />
                   <button
                     onClick={() => {

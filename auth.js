@@ -8,9 +8,8 @@ import {
 import { doc, updateDoc } from "firebase/firestore";
 import { auth, db } from "./firebase";
 
-const provider = new GoogleAuthProvider();
-
 export const signInWithGoogle = async () => {
+  const provider = new GoogleAuthProvider();
   return await signInWithPopup(auth, provider);
 };
 export const signInWithPassword = async (email, password) => {

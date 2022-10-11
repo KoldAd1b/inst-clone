@@ -6,6 +6,8 @@ import store from "../store/index.";
 import Header from "../components/Header";
 import Modal from "../components/Utility/Modal";
 import AuthProvider from "../components/Auth/AuthProvider";
+import { ErrorBoundary } from "react-error-boundary";
+import { Fallback } from "../components/Utility/Fallback";
 
 function MyApp({ Component, pageProps: { ...pageProps } }) {
   return (
@@ -17,8 +19,9 @@ function MyApp({ Component, pageProps: { ...pageProps } }) {
       <AuthProvider>
         <Header />
         <Modal />
-
-        <Component {...pageProps} />
+        <ErrorBoundary FallbackComponent={<Fallback />}>
+          <Component {...pageProps} />
+        </ErrorBoundary>
       </AuthProvider>
     </Provider>
   );

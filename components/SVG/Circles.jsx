@@ -9,7 +9,7 @@ const Circles = () => {
           height="40"
           viewBox="0 0 40 40"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+          xmlns="https://www.w3.org/2000/svg"
         >
           <circle
             cx="1.39737"
@@ -131,7 +131,7 @@ const Circles = () => {
           height="40"
           viewBox="0 0 29 40"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+          xmlns="https://www.w3.org/2000/svg"
         >
           <circle
             cx="2.288"
